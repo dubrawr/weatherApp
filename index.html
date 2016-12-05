@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+	<meta charset="UTF-8">
+	<title>Weather</title>
+</head>
+<body ng-controller="mainCtrl">
+<form ng-submit="getWeather()">
+<input class="cityInput" ng-model="cityName" placeholder="enter a city name" name="city" type="text">
+</form>
+<!-- not sure how to get this to work -->
+<span am-time-ago="test | amFromUnix"></span>
+<div>
+</div>
+<script src="./node_modules/angular/angular.js"></script>
+<script src="./node_modules/angular-route/angular-route.js"></script>
+<script src="./node_modules/moment/moment.js"></script>
+<script src="./node_modules/angular-moment/angular-moment.js"></script>
+<script src="./app/main.js"></script>
+</body>
+</html>
