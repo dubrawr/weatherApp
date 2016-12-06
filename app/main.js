@@ -21,13 +21,14 @@ angular.module('myApp', ['ngRoute'])
 				params: params
 			}).then(function(response){
 				console.log(response.data);
-				$scope.currentTemp = response.data.main.temp;
-				$scope.lowTemp = response.data.main.temp_min;
-				$scope.highTemp = response.data.main.temp_max;
+				var weather = response.data;
+				$scope.currentTemp = weather.main.temp;
+				$scope.lowTemp = weather.main.temp_min;
+				$scope.highTemp = weather.main.temp_max;
 				$scope.result = true;
-				$scope.city = response.data.name + ", " + response.data.sys.country;
+				$scope.city = weather.name + ", " + weather.sys.country;
 				
-				var windResult = response.data.wind.speed;
+				var windResult = weather.wind.speed;
 				if (windResult <= 3){
 					$scope.wind = "Calm";
 				} else if (windResult <=10){
@@ -39,15 +40,36 @@ angular.module('myApp', ['ngRoute'])
 				} else {
 					$scope.wind = "Don't go outside.";
 				}
-
+				var currentTime = new Date();
+			var time = currentTime.getTime();
+				var sunrise = weather.sys.sunrise;
+			var sunset = weather.sys.sunset;
+			//if false, then it's night time. if true, then it's daytime
+				var daytime = moment(time).isBetween(sunrise, sunset);
+				console.log(daytime);
 
 				//if windResult > someNumber, then $scope.wind will say breezy, windy, etc
 				//if currentTime is before or after sunset, change background night or day
 				//background changes if cloudy, rainy, or clear.
 				//clouds all is percentage of clouds
 
-			});	
+			});
+			
+			
 		};
+
+var backGrounds = {
+	dayfog: "./app/images/dayFog.jpg",
+	nightFog: "./app/images/nightFog.jpg",
+	dayCloudy: "./app/images/dayCloudy.jpg",
+	nightCloudy: "./app/images/nightCloudy.jpg",
+	dayClear: "./app/images/dayClear.jpg",
+	nightClear: "./app/images/nightClear.jpg",
+	dayRain: "./app/images/dayRain.jpg",
+	nightRain: "./app/images/nightRain.jpg",
+	daySnow: "./app/images/daySnow.jpg",
+	nightSnow: "./app/images/nightSnow.jpg"
+};
 
 
 }]);

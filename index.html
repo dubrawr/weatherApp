@@ -4,6 +4,7 @@
 	<meta charset="UTF-8">
 	<title>Weather</title>
 <link rel="stylesheet" type="text/css" href="./node_modules/bootstrap/dist/css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="app/css/styles.css">
 </head>
 <body ng-controller="mainCtrl" class="container">
 <form ng-submit="getWeather()">
@@ -11,7 +12,7 @@
 </form>
 <!-- not sure how to get this to work -->
 <span am-time-ago="test | amFromUnix"></span>
-<div ng-show="result">
+<div class="weather" ng-show="result" ng-style="{'background-image': 'url(' + backgroundUrl + ')'}">
 <ul>
 <li>{{city}}</li>
 <li>{{currentTemp | number: 1}}°F</li>
