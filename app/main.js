@@ -5,6 +5,7 @@ angular.module('myApp', ['ngRoute'])
 })
 .controller('mainCtrl', ['$routeParams', '$scope', '$http',
 	function($routeParams, $scope, $http){
+		$scope.result = false;
 		console.log('hello world');
 
 		$scope.getWeather = function(){
@@ -20,9 +21,36 @@ angular.module('myApp', ['ngRoute'])
 				params: params
 			}).then(function(response){
 				console.log(response.data);
-				$scope.test = response.data.sys.sunrise;
+				$scope.currentTemp = response.data.main.temp;
+				$scope.lowTemp = response.data.main.temp_min;
+				$scope.highTemp = response.data.main.temp_max;
+				$scope.result = true;
+				$scope.city = response.data.name + ", " + response.data.sys.country;
+				
+				var windResult = response.data.wind.speed;
+				if (windResult <= 3){
+					$scope.wind = "Calm";
+				} else if (windResult <=10){
+					$scope.wind = "Easy Breezy";
+				} else if (windResult<=21){
+					$scope.wind = "Windy";
+				} else if (windResult <= 27){
+					$scope.wind = "You Should Hold on to Something";
+				} else {
+					$scope.wind = "Don't go outside.";
+				}
+
+
+				//if windResult > someNumber, then $scope.wind will say breezy, windy, etc
+				//if currentTime is before or after sunset, change background night or day
+				//background changes if cloudy, rainy, or clear.
+				//clouds all is percentage of clouds
+
 			});	
 		};
 
 
 }]);
+
+// use this to understand wind speed later on
+// https://www.windfinder.com/wind/windspeed.htm

@@ -3,15 +3,25 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Weather</title>
+<link rel="stylesheet" type="text/css" href="./node_modules/bootstrap/dist/css/bootstrap.css">
 </head>
-<body ng-controller="mainCtrl">
+<body ng-controller="mainCtrl" class="container">
 <form ng-submit="getWeather()">
 <input class="cityInput" ng-model="cityName" placeholder="enter a city name" name="city" type="text">
 </form>
 <!-- not sure how to get this to work -->
 <span am-time-ago="test | amFromUnix"></span>
-<div>
+<div ng-show="result">
+<ul>
+<li>{{city}}</li>
+<li>{{currentTemp | number: 1}}°F</li>
+<li>{{lowTemp | number: 1}}°F</li>
+<li>{{highTemp | number: 1}}°F</li>
+<li>Winds: {{wind}}</li>
+<!-- <li>{{}}</li> -->
+</ul>
 </div>
+<script src="./node_modules/jquery/dist/jquery.js"></script>
 <script src="./node_modules/angular/angular.js"></script>
 <script src="./node_modules/angular-route/angular-route.js"></script>
 <script src="./node_modules/moment/moment.js"></script>
