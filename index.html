@@ -14,10 +14,11 @@
 <span am-time-ago="test | amFromUnix"></span>
 <div class="weather" ng-show="result" ng-style="{'background-image': 'url(' + backgroundUrl + ')'}">
 <ul>
+<li>{{sweater}}</li>
 <li>{{city}}</li>
-<li>{{currentTemp | number: 1}}°F</li>
-<li>{{lowTemp | number: 1}}°F</li>
-<li>{{highTemp | number: 1}}°F</li>
+<li>Current Temperature: {{temp | number: 1}}°F</li>
+<li>Today's Low: {{lowTemp | number: 1}}°F</li>
+<li>Today's High: {{highTemp | number: 1}}°F</li>
 <li>Winds: {{wind}}</li>
 <!-- <li>{{}}</li> -->
 </ul>

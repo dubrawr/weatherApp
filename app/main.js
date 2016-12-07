@@ -22,12 +22,32 @@ angular.module('myApp', ['ngRoute'])
 			}).then(function(response){
 				console.log(response.data);
 				var weather = response.data;
-				$scope.currentTemp = weather.main.temp;
+				$scope.temp = weather.main.temp;
 				$scope.lowTemp = weather.main.temp_min;
 				$scope.highTemp = weather.main.temp_max;
 				$scope.result = true;
 				$scope.city = weather.name + ", " + weather.sys.country;
-				
+
+				//sweater weather checker
+				if ($scope.temp <= 40){
+					$scope.sweater = "You'd be crazy not to.";
+				} else if ($scope.temp <= 59){
+					$scope.sweater = "Bring two.";
+				} else if ($scope.temp <= 64){
+					$scope.sweater = "It's officially sweater weather.";
+				} else if ($scope.temp <= 68){
+					$scope.sweater = "Pick the nice black one you love so much.";
+				} else if ($scope.temp <= 73){
+					$scope.sweater = "Do it for fashion.";
+				} else if ($scope.temp <= 80){
+					$scope.sweater = "If you do, promise you'll wear deodorant.";
+				} else if ($scope.temp <= 90){
+					$scope.sweater = "Please don't.";
+				} else {
+					$scope.sweater = "Only if you hate yourself";
+				}
+
+				//wind checker
 				var windResult = weather.wind.speed;
 				if (windResult <= 3){
 					$scope.wind = "Calm";
@@ -40,13 +60,16 @@ angular.module('myApp', ['ngRoute'])
 				} else {
 					$scope.wind = "Don't go outside.";
 				}
-				var currentTime = new Date();
-			var time = currentTime.getTime();
+
+				//daytime checker
+				var time = new Date().getTime().toString();
+				var currentTime = Number(time.slice(0,-3));
 				var sunrise = weather.sys.sunrise;
-			var sunset = weather.sys.sunset;
-			//if false, then it's night time. if true, then it's daytime
-				var daytime = moment(time).isBetween(sunrise, sunset);
-				console.log(daytime);
+				var sunset = weather.sys.sunset;
+				//if false, then it's night time. if true, then it's daytime
+				$scope.daytime = moment(currentTime).isBetween(sunrise, sunset);
+				console.log($scope.daytime);
+				
 
 				//if windResult > someNumber, then $scope.wind will say breezy, windy, etc
 				//if currentTime is before or after sunset, change background night or day
@@ -73,6 +96,3 @@ var backGrounds = {
 
 
 }]);
-
-// use this to understand wind speed later on
-// https://www.windfinder.com/wind/windspeed.htm
