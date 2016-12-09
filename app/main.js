@@ -137,9 +137,17 @@ var backgrounds = {
 	nightSnow: "./app/images/nightSnow.jpg"
 };
 
+var x = confirm("Share your location?");
+if (x){
+	navigator.geolocation.getCurrentPosition(function(position) {
+		
+		var latitude = position.coords.latitude;
+		var longitude = position.coords.longitude;
+		console.log(latitude+' '+ longitude);
+	});
+}
 
 
 
 }]);
 
-// add geolocation API to get user location
