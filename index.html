@@ -7,7 +7,7 @@
 	<link rel="stylesheet" type="text/css" href="./node_modules/bootstrap/dist/css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="app/css/styles.css">
 </head>
-<body ng-controller="mainCtrl" class="container">
+<body ng-cloak ng-controller="mainCtrl" class="container">
 	
 		<div class="big title">Should I wear a sweater?</div>
 		<div class="main">
@@ -15,10 +15,10 @@
 			<input class="cityInput" ng-model="cityName" placeholder="enter a city name" name="city" type="text">
 		</form>
 		<span>{{sweater}}</span><br>
-		<button ng-show="result" ng-click="showWeather = !showWeather" class="btn">Show me the weather.</button>
+		<button ng-show="result" ng-click="showWeather = !showWeather" class="btn toggle">Show me the weather.</button><br><br>
 		<div class="fading weather" ng-show="showWeather" ng-style="{'background-image': 'url(' + backgroundUrl + ')', 'color':color}">
 			
-			<ul>
+			<ul class="vertical">
 				<li class="cityname">{{city}}</li>
 				<li class="big">{{temp | number: 1}}°F</li>
 				<li>Today's Low: {{lowTemp | number: 1}}°F</li>

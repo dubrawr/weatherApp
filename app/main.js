@@ -6,10 +6,37 @@ angular.module('myApp', ['ngRoute', 'ngAnimate'])
 .controller('mainCtrl', ['$routeParams', '$scope', '$http',
 	function($routeParams, $scope, $http){
 		$scope.result = false;
-		console.log('hello world');
+
+		var url = "http://api.openweathermap.org/data/2.5/weather";
+		var x = confirm("Share your location?");
+		if (x){
+	navigator.geolocation.getCurrentPosition(function(position) {
+		
+		var latitude = position.coords.latitude;
+		var longitude = position.coords.longitude;
+		console.log(latitude+' '+ longitude);
+		$scope.getLocation = function(){
+			var params = {
+				lon: longitude,
+				lat: latitude,
+				APPID: "c11d624d498c7bc902eff125d571c3b8",
+				units: "imperial"
+			};
+			$http({
+				method: 'GET',
+				url: url,
+				params: params
+			}).then(function(response){
+				console.log(response.data);
+				$scope.workIt(response);
+			});
+		};
+		$scope.getLocation();
+	});
+}
 
 		$scope.getWeather = function(){
-			var url = "http://api.openweathermap.org/data/2.5/weather";
+			
 			var params = {
 				q: $scope.cityName,
 				APPID: "c11d624d498c7bc902eff125d571c3b8",
@@ -21,7 +48,16 @@ angular.module('myApp', ['ngRoute', 'ngAnimate'])
 				params: params
 			}).then(function(response){
 				console.log(response.data);
-				var weather = response.data;
+				$scope.workIt(response);
+
+			});
+			
+			
+		};
+
+
+	$scope.workIt = function(response){
+		var weather = response.data;
 				var weatherConditions = weather.weather;
 				$scope.temp = weather.main.temp;
 				$scope.lowTemp = weather.main.temp_min;
@@ -118,11 +154,7 @@ angular.module('myApp', ['ngRoute', 'ngAnimate'])
 				if (conditions.indexOf('Snow') > -1 && !daytime){
 					$scope.backgroundUrl = backgrounds.nightSnow;
 				}
-
-			});
-			
-			
-		};
+	}
 
 var backgrounds = {
 	dayfog: "./app/images/dayFog.jpg",
@@ -137,15 +169,15 @@ var backgrounds = {
 	nightSnow: "./app/images/nightSnow.jpg"
 };
 
-var x = confirm("Share your location?");
-if (x){
-	navigator.geolocation.getCurrentPosition(function(position) {
-		
-		var latitude = position.coords.latitude;
-		var longitude = position.coords.longitude;
-		console.log(latitude+' '+ longitude);
-	});
-}
+$(".toggle").on("click", function(){
+    if($(this).text()=="Show me the weather.")
+    {
+        $(this).text("Okay, I believe you.");
+    } else {
+        $(this).text("Show me the weather.");
+    }        
+    return false;
+});
 
 
 
