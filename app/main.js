@@ -35,7 +35,6 @@ angular.module('myApp', ['ngRoute', 'ngAnimate'])
 }
 
 		$scope.getWeather = function(){
-			$scope.showWeather = false;
 			var params = {
 				q: $scope.cityName,
 				APPID: "c11d624d498c7bc902eff125d571c3b8",
@@ -48,7 +47,6 @@ angular.module('myApp', ['ngRoute', 'ngAnimate'])
 			}).then(function(response){
 				console.log(response.data);
 				$scope.workIt(response);
-				$scope.showWeather = true;
 			});
 			
 			
@@ -82,7 +80,7 @@ angular.module('myApp', ['ngRoute', 'ngAnimate'])
 				} else if ($scope.temp <= 80){
 					$scope.sweater = "It's not recommended, but bring it because you love it.";
 				} else if ($scope.temp <= 90){
-					$scope.sweater = "If you do, promise you'll wear deodorant.";
+					$scope.sweater = "If you do, promise me you'll wear deodorant.";
 				} else {
 					$scope.sweater = "Only if you hate yourself";
 				}
@@ -120,11 +118,15 @@ angular.module('myApp', ['ngRoute', 'ngAnimate'])
 					conditions.push(weatherConditions[i].main);
 				}
 				console.log (conditions);
+
+				$scope.details = conditions.join(', ');
+				console.log($scope.details);
 				
 				//background changes if cloudy, rainy, or clear.
 				//clouds all is percentage of clouds
 				if(daytime){
 					$scope.color = 'black';
+					$scope.shadow = '1px 1px 5px white';
 					if(conditions.indexOf('Snow') > -1){
 						$scope.backgroundUrl = backgrounds.daySnow;
 					} else if (conditions.indexOf('Rain') > -1){
@@ -138,6 +140,7 @@ angular.module('myApp', ['ngRoute', 'ngAnimate'])
 					}
 				} else if (!daytime){
 					$scope.color = 'white';
+					$scope.shadow = '2px 2px black';
 					if(conditions.indexOf('Snow') > -1){
 						$scope.backgroundUrl = backgrounds.nightSnow;
 					} else if (conditions.indexOf('Rain') > -1){
@@ -150,6 +153,11 @@ angular.module('myApp', ['ngRoute', 'ngAnimate'])
 						$scope.backgroundUrl = backgrounds.nightClear;
 					}
 				}
+				$scope.style = {
+					'color': $scope.color,
+					'background-image': 'url('+$scope.backgroundUrl+')',
+					'text-shadow': $scope.shadow
+				};
 
 	};
 

@@ -20,6 +20,7 @@
 	margin-top: 30px;
 }
 .convert { cursor: pointer; cursor: hand; }
+.convert>span:hover {color: yellow;}
 .sweater {margin-bottom: 20px; font-size: 35px;}
 .title {text-align: center; padding-top: 170px;}
 .main {width: 100%; margin: 0 auto; text-align: center;}
@@ -29,7 +30,7 @@ ul {list-style-type: none; padding: 0;}
 .big {font-size: 50px;}
 .cityname {font-size: 20px;}
 
-input {font-size: 20px;}
+input {font-size: 18px;}
 
 
 @media screen and (max-width: 500px) {

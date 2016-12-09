@@ -2,7 +2,7 @@
 <html lang="en" ng-app="myApp">
 <head>
 	<meta charset="UTF-8">
-	<title>Weather</title>
+	<title>Sweater Weather</title>
 	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="./node_modules/bootstrap/dist/css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="app/css/styles.css">
@@ -13,10 +13,11 @@
 		<div class="main">
 		<form ng-submit="getWeather()">
 			<input class="cityInput" ng-model="cityName" placeholder="enter a city name" name="city" type="text">
+			<input type="submit" value="?" class="btn">
 		</form>
 		<span class="sweater">{{sweater}}</span><br>
 		<button ng-show="result" ng-click="showWeather = !showWeather" class="btn toggle">Show me the weather.</button><br><br>
-		<div class="fading weather" ng-show="showWeather" ng-style="{'background-image': 'url(' + backgroundUrl + ')', 'color':color}">
+		<div class="fading weather" ng-show="showWeather" ng-style="style">
 			
 			<ul class="vertical">
 				<li class="cityname">{{city}}</li>
@@ -24,6 +25,7 @@
 				<li>Today's Low: {{lowTemp | number: 1}}°{{degree}}</li>
 				<li>Today's High: {{highTemp | number: 1}}°{{degree}}</li>
 				<li>Wind: {{wind}}</li>
+				<li>Weather Conditions: {{details}}</li>
 				<li class="convert"><span ng-click="convertC()">C°</span>|<span ng-click="convertF()">F°</span></li>
 			</ul>
 
