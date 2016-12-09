@@ -22,11 +22,13 @@ angular.module('myApp', ['ngRoute'])
 			}).then(function(response){
 				console.log(response.data);
 				var weather = response.data;
+				var weatherConditions = weather.weather;
 				$scope.temp = weather.main.temp;
 				$scope.lowTemp = weather.main.temp_min;
 				$scope.highTemp = weather.main.temp_max;
 				$scope.result = true;
 				$scope.city = weather.name + ", " + weather.sys.country;
+				$scope.cityName = '';
 
 				//sweater weather checker
 				if ($scope.temp <= 40){
@@ -67,21 +69,60 @@ angular.module('myApp', ['ngRoute'])
 				var sunrise = weather.sys.sunrise;
 				var sunset = weather.sys.sunset;
 				//if false, then it's night time. if true, then it's daytime
-				$scope.daytime = moment(currentTime).isBetween(sunrise, sunset);
-				console.log($scope.daytime);
+				var daytime = moment(currentTime).isBetween(sunrise, sunset);
+				console.log(daytime);
 				
+				// var clouds = weatherConditions.filter(function(object){
+				// 	return object.main == 'Clouds';
+				// });
+				// console.log(clouds[0]);
 
-				//if windResult > someNumber, then $scope.wind will say breezy, windy, etc
-				//if currentTime is before or after sunset, change background night or day
+				var conditions = [];
+				for (i=0; i<weatherConditions.length; i++){
+					conditions.push(weatherConditions[i].main);
+				}
+				console.log (conditions);
+				
 				//background changes if cloudy, rainy, or clear.
 				//clouds all is percentage of clouds
+				if(daytime){
+					$scope.color = 'black';
+					if(conditions.indexOf('Snow') > -1){
+						$scope.backgroundUrl = backgrounds.daySnow;
+					} else if (conditions.indexOf('Rain') > -1){
+						$scope.backgroundUrl = backgrounds.dayRain;
+					} else if (conditions.indexOf('Fog') > -1){
+						$scope.backgroundUrl = backgrounds.dayFog;
+					} else if (conditions.indexOf('Clouds') > -1){
+						$scope.backgroundUrl = backgrounds.dayCloudy;
+					} else {
+						$scope.backgroundUrl = backgrounds.dayClear;
+					}
+				} else if (!daytime){
+					$scope.color = 'white';
+					if(conditions.indexOf('Snow') > -1){
+						$scope.backgroundUrl = backgrounds.nightSnow;
+					} else if (conditions.indexOf('Rain') > -1){
+						$scope.backgroundUrl = backgrounds.nightRain;
+					} else if (conditions.indexOf('Fog') > -1){
+						$scope.backgroundUrl = backgrounds.nightFog;
+					} else if (conditions.indexOf('Clouds') > -1){
+						$scope.backgroundUrl = backgrounds.nightCloudy;
+					} else {
+						$scope.backgroundUrl = backgrounds.nightClear;
+					}
+				}
+
+				if (conditions.indexOf('Snow') > -1 && !daytime){
+					$scope.backgroundUrl = backgrounds.nightSnow;
+				}
 
 			});
 			
 			
 		};
 
-var backGrounds = {
+var backgrounds = {
 	dayfog: "./app/images/dayFog.jpg",
 	nightFog: "./app/images/nightFog.jpg",
 	dayCloudy: "./app/images/dayCloudy.jpg",
@@ -93,6 +134,8 @@ var backGrounds = {
 	daySnow: "./app/images/daySnow.jpg",
 	nightSnow: "./app/images/nightSnow.jpg"
 };
+
+
 
 
 }]);

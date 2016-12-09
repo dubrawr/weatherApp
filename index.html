@@ -3,25 +3,26 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Weather</title>
+<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="./node_modules/bootstrap/dist/css/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="app/css/styles.css">
 </head>
 <body ng-controller="mainCtrl" class="container">
+<div class="title">Can I wear a sweater?</div>
 <form ng-submit="getWeather()">
 <input class="cityInput" ng-model="cityName" placeholder="enter a city name" name="city" type="text">
 </form>
-<!-- not sure how to get this to work -->
-<span am-time-ago="test | amFromUnix"></span>
-<div class="weather" ng-show="result" ng-style="{'background-image': 'url(' + backgroundUrl + ')'}">
+
+<div class="weather" ng-show="result" ng-style="{'background-image': 'url(' + backgroundUrl + ')', 'color':color}">
 <ul>
-<li>{{sweater}}</li>
-<li>{{city}}</li>
-<li>Current Temperature: {{temp | number: 1}}°F</li>
+<li class="cityname">{{city}}</li>
+<li class="big">{{temp | number: 1}}°F</li>
 <li>Today's Low: {{lowTemp | number: 1}}°F</li>
 <li>Today's High: {{highTemp | number: 1}}°F</li>
-<li>Winds: {{wind}}</li>
+<li>Wind: {{wind}}</li>
 <!-- <li>{{}}</li> -->
 </ul>
+<span>{{sweater}}</span>
 </div>
 <script src="./node_modules/jquery/dist/jquery.js"></script>
 <script src="./node_modules/angular/angular.js"></script>

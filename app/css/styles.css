@@ -3,3 +3,18 @@
 	height: 600px;
 	background: no-repeat;
 }
+
+
+
+body {font-family: 'Montserrat', 'Helvetica', sans-serif;}
+ul {list-style-type: none;}
+
+.big {font-size: 50px;}
+.cityname {font-size: 20px;}
+
+
+@media screen and (max-width: 500px) {
+ 	.weather {
+		width: 100%;
+	}
+}
