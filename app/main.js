@@ -1,4 +1,4 @@
-angular.module('myApp', ['ngRoute'])
+angular.module('myApp', ['ngRoute', 'ngAnimate'])
 .config(function($httpProvider){
 	$httpProvider.defaults.useXDomain = true;
 	delete $httpProvider.defaults.headers.common['X-Requested-With'];
@@ -41,10 +41,12 @@ angular.module('myApp', ['ngRoute'])
 					$scope.sweater = "Pick the nice black one you love so much.";
 				} else if ($scope.temp <= 73){
 					$scope.sweater = "Do it for fashion.";
+				} else if ($scope.temp <= 75){
+					$scope.sweater = "You won't need it...but you can still wear it.";
 				} else if ($scope.temp <= 80){
-					$scope.sweater = "If you do, promise you'll wear deodorant.";
+					$scope.sweater = "It's not recommended, but bring it because you love it.";
 				} else if ($scope.temp <= 90){
-					$scope.sweater = "Please don't.";
+					$scope.sweater = "If you do, promise you'll wear deodorant.";
 				} else {
 					$scope.sweater = "Only if you hate yourself";
 				}
@@ -139,3 +141,5 @@ var backgrounds = {
 
 
 }]);
+
+// add geolocation API to get user location

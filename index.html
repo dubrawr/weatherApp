@@ -3,32 +3,38 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Weather</title>
-<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="./node_modules/bootstrap/dist/css/bootstrap.css">
-<link rel="stylesheet" type="text/css" href="app/css/styles.css">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="./node_modules/bootstrap/dist/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="app/css/styles.css">
 </head>
 <body ng-controller="mainCtrl" class="container">
-<div class="title">Can I wear a sweater?</div>
-<form ng-submit="getWeather()">
-<input class="cityInput" ng-model="cityName" placeholder="enter a city name" name="city" type="text">
-</form>
+	
+		<div class="big title">Should I wear a sweater?</div>
+		<div class="main">
+		<form ng-submit="getWeather()">
+			<input class="cityInput" ng-model="cityName" placeholder="enter a city name" name="city" type="text">
+		</form>
+		<span>{{sweater}}</span><br>
+		<button ng-show="result" ng-click="showWeather = !showWeather" class="btn">Show me the weather.</button>
+		<div class="fading weather" ng-show="showWeather" ng-style="{'background-image': 'url(' + backgroundUrl + ')', 'color':color}">
+			
+			<ul>
+				<li class="cityname">{{city}}</li>
+				<li class="big">{{temp | number: 1}}°F</li>
+				<li>Today's Low: {{lowTemp | number: 1}}°F</li>
+				<li>Today's High: {{highTemp | number: 1}}°F</li>
+				<li>Wind: {{wind}}</li>
+				<!-- <li>{{}}</li> -->
+			</ul>
 
-<div class="weather" ng-show="result" ng-style="{'background-image': 'url(' + backgroundUrl + ')', 'color':color}">
-<ul>
-<li class="cityname">{{city}}</li>
-<li class="big">{{temp | number: 1}}°F</li>
-<li>Today's Low: {{lowTemp | number: 1}}°F</li>
-<li>Today's High: {{highTemp | number: 1}}°F</li>
-<li>Wind: {{wind}}</li>
-<!-- <li>{{}}</li> -->
-</ul>
-<span>{{sweater}}</span>
-</div>
-<script src="./node_modules/jquery/dist/jquery.js"></script>
-<script src="./node_modules/angular/angular.js"></script>
-<script src="./node_modules/angular-route/angular-route.js"></script>
-<script src="./node_modules/moment/moment.js"></script>
-<script src="./node_modules/angular-moment/angular-moment.js"></script>
-<script src="./app/main.js"></script>
+		</div>
+	</div>
+	<script src="./node_modules/jquery/dist/jquery.js"></script>
+	<script src="./node_modules/angular/angular.js"></script>
+	<script src="./node_modules/angular-animate/angular-animate.js"></script>
+	<script src="./node_modules/angular-route/angular-route.js"></script>
+	<script src="./node_modules/moment/moment.js"></script>
+	<script src="./node_modules/angular-moment/angular-moment.js"></script>
+	<script src="./app/main.js"></script>
 </body>
 </html>
