@@ -5,7 +5,6 @@ angular.module('myApp', ['ngRoute', 'ngAnimate'])
 })
 .controller('mainCtrl', ['$routeParams', '$scope', '$http',
 	function($routeParams, $scope, $http){
-		$scope.result = false;
 
 		var url = "http://api.openweathermap.org/data/2.5/weather";
 		var x = confirm("Share your location?");
@@ -36,7 +35,7 @@ angular.module('myApp', ['ngRoute', 'ngAnimate'])
 }
 
 		$scope.getWeather = function(){
-			
+			$scope.showWeather = false;
 			var params = {
 				q: $scope.cityName,
 				APPID: "c11d624d498c7bc902eff125d571c3b8",
@@ -49,7 +48,7 @@ angular.module('myApp', ['ngRoute', 'ngAnimate'])
 			}).then(function(response){
 				console.log(response.data);
 				$scope.workIt(response);
-
+				$scope.showWeather = true;
 			});
 			
 			
@@ -57,7 +56,7 @@ angular.module('myApp', ['ngRoute', 'ngAnimate'])
 
 
 	$scope.workIt = function(response){
-		var weather = response.data;
+				var weather = response.data;
 				var weatherConditions = weather.weather;
 				$scope.temp = weather.main.temp;
 				$scope.lowTemp = weather.main.temp_min;
@@ -65,6 +64,7 @@ angular.module('myApp', ['ngRoute', 'ngAnimate'])
 				$scope.result = true;
 				$scope.city = weather.name + ", " + weather.sys.country;
 				$scope.cityName = '';
+				$scope.degree = 'F';
 
 				//sweater weather checker
 				if ($scope.temp <= 40){
@@ -151,10 +151,7 @@ angular.module('myApp', ['ngRoute', 'ngAnimate'])
 					}
 				}
 
-				if (conditions.indexOf('Snow') > -1 && !daytime){
-					$scope.backgroundUrl = backgrounds.nightSnow;
-				}
-	}
+	};
 
 var backgrounds = {
 	dayfog: "./app/images/dayFog.jpg",
@@ -180,6 +177,23 @@ $(".toggle").on("click", function(){
 });
 
 
+$scope.convertC = function(){
+	$scope.temp = toCelsius($scope.temp);
+	$scope.degree = 'C';
+};
+
+$scope.convertF = function(){
+	$scope.temp = toFahrenheit($scope.temp);
+	$scope.degree = 'F';
+};
+
+var toCelsius = function(x){
+	return (5/9)*(x - 32);
+};
+
+var toFahrenheit = function(x){
+	return x * 9 / 5 + 32;
+};
 
 }]);
 

@@ -16,8 +16,11 @@
 .vertical {
 	align-self: center;
 }
-
-span {margin-bottom: 20px; font-size: 35px;}
+.convert {
+	margin-top: 30px;
+}
+.convert { cursor: pointer; cursor: hand; }
+.sweater {margin-bottom: 20px; font-size: 35px;}
 .title {text-align: center; padding-top: 170px;}
 .main {width: 100%; margin: 0 auto; text-align: center;}
 body {font-family: 'Montserrat', 'Helvetica', sans-serif;}
