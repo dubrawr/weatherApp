@@ -6,7 +6,7 @@ angular.module('myApp', ['ngRoute', 'ngAnimate'])
 .controller('mainCtrl', ['$routeParams', '$scope', '$http',
 	function($routeParams, $scope, $http){
 
-		var url = "http://api.openweathermap.org/data/2.5/weather";
+		var url = "https://shrouded-sea-10419.herokuapp.com/weather";
 		var x = confirm("Share your location?");
 		if (x){
 	navigator.geolocation.getCurrentPosition(function(position) {
@@ -186,13 +186,21 @@ $(".toggle").on("click", function(){
 
 
 $scope.convertC = function(){
+	if ($scope.degree === 'C'){
+		console.log('already C');
+	} else {
 	$scope.temp = toCelsius($scope.temp);
 	$scope.degree = 'C';
+	}
 };
 
 $scope.convertF = function(){
+	if ($scope.degree === 'F'){
+		console.log('already F');
+	} else {
 	$scope.temp = toFahrenheit($scope.temp);
 	$scope.degree = 'F';
+	}
 };
 
 var toCelsius = function(x){
